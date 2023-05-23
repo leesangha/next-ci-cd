@@ -3,4 +3,4 @@ services:
   next:
     build: .
     ports:
-      - 3001:8080
+      - 3001:80
