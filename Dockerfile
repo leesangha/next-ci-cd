@@ -2,14 +2,16 @@ FROM node:alpine
 
 ENV PORT 3000
 
-RUN apk --no-cache add tzdata && \
-        cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
-        echo "Asia/Seoul" > /etc/timezone
-
 WORKDIR /usr/src/app
+
 COPY package*.json ./
-RUN npm install
+
+RUN npm ci --legacy-peer-deps
+
 COPY ./ ./
+
 ENV NODE_ENV production
-RUN npm run build
+
+RUN npm run build --if-present
+
 CMD ["npm", "run", "start"]
